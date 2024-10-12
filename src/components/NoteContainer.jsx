@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Note from "./Note";
 import Modal from "./Modal";
+import nothingToDoImg from "../images/image2-faded.png";
 
 const NoteContainer = ({ noteData, searchTerm, filterOption }) => {
   const [allNoteData, setAllNoteData] = useState(noteData);
@@ -69,9 +70,10 @@ const NoteContainer = ({ noteData, searchTerm, filterOption }) => {
           modalInputValueChange={(e) => setModalInputValue(e.target.value)}
         />
       )}
-      <div className="mt-10 max-h-96 overflow-y-auto max-w-5xl mx-auto p-8 divide-y divide-purple-500/25">
-        {filteredNotes.length > 0
-          ? filteredNotes.map((note, noteIndex) => (
+      <div className="mt-10  max-w-5xl mx-auto p-8 divide-y divide-purple-500/25">
+        {filteredNotes.length > 0 ? (
+          <div className="max-h-96 overflow-y-auto">
+            {filteredNotes.map((note, noteIndex) => (
               <Note
                 key={noteIndex}
                 noteText={note.noteText}
@@ -80,8 +82,18 @@ const NoteContainer = ({ noteData, searchTerm, filterOption }) => {
                 handleEdit={() => handleEdit(noteIndex)}
                 handleDelete={() => handleDelete(noteIndex)}
               />
-            ))
-          : "Nothing to do"}
+            ))}
+          </div>
+        ) : (
+          <div className=" grid place-items-center sm:h-80 w-full">
+            <h1
+              className="text-stone-900 text-4xl sm:text-6xl tracking-widest"
+              style={{ textShadow: "0 0 3px #d8b4fe" }}
+            >
+              Nothing to do...
+            </h1>
+          </div>
+        )}
       </div>
     </>
   );
